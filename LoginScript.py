@@ -18,7 +18,7 @@ domainController = "dc-r2.igs.vic.edu.au"
 
 
 username = (SCDynamicStoreCopyConsoleUser(None, None, None) or [None])[0]; username = [username,""][username in [u"loginwindow", None, u""]]; sys.stdout.write(username + "\n")
-accountType = os.system("dscl \"/Active Directory/IGS/igs.vic.edu.au\" -read /Users/" + username + " | grep UniqueID | cut -c 11-")
+accountType = os.system("dscl \"/Active Directory/" + DOMAIN+ "/" + FQDN + "\" -read /Users/" + username + " | grep UniqueID | cut -c 11-")
 #Attempt to read Active Directory Groups from dscl
 
 def mountSpecial():
@@ -217,8 +217,11 @@ def mountHome():
 
         os.system("osascript -e 'mount volume \"smb:" + path + "\" as user name \"" + username + "\"'")
 
-logging.debug("Mounting Network folders for: " + username)
-mountHome()
-getADGroups()
-mountSpecial()
+if accountType != "":
+    logging.debug("Mounting Network folders for: " + username)
+    mountHome()
+    getADGroups()
+    mountSpecial()
+else
+    logging.debug("Active Directory Binding is broken. Please repair AD Binding for: " + username)
 syslog.closelog()
