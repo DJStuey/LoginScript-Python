@@ -21,6 +21,18 @@ username = (SCDynamicStoreCopyConsoleUser(None, None, None) or [None])[0]; usern
 accountType = os.system("dscl \"/Active Directory/IGS/igs.vic.edu.au\" -read /Users/" + username + " | grep UniqueID | cut -c 11-")
 #Attempt to read Active Directory Groups from dscl
 
+def mountSpecial():
+
+    if username == "garla_k":
+        logging.debug("User is member of Marketing: " + username)
+        mount("goofy","photos_marketing","photos_marketing")
+        mount("obiwan","media.igs.vic.edu.au","Obiwan")
+
+    if username == "wrigh_l":
+        logging.debug("User is member of Marketing: " + username)
+        mount("obiwan","photos_marketing","photos_marketing")
+        mount("obiwan","media.igs.vic.edu.au","Obiwan")\
+
 def getADGroups():
     #function to retrieve AD Group Membership
     logging.debug("Determining Active Directory Groups for: " + username)
@@ -208,4 +220,5 @@ def mountHome():
 logging.debug("Mounting Network folders for: " + username)
 mountHome()
 getADGroups()
+mountSpecial()
 syslog.closelog()
