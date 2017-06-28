@@ -9,11 +9,13 @@ import string
 import logging
 import syslog
 
-FQDN = "igs.vic.edu.au"
-DOMAIN = "IGS"
+##REPLACE ITEMS SURROUNDED BY <> WITH YOUR INFORMATION
+
+FQDN = "<YOUR FULLY QUALIFIED DOMAIN NAME>"
+DOMAIN = "<SHORT DOMAIN>"
 
 path = ""
-domainController = "dc-r2.igs.vic.edu.au"
+domainController = "<DOMAIN CONTROLLER ADDRESS>"
 #logging.basicConfig(filename='/var/log/LoginScript.log', level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
@@ -23,15 +25,15 @@ accountType = os.system("dscl \"/Active Directory/" + DOMAIN+ "/" + FQDN + "\" -
 
 def mountSpecial():
 
-    if username == "garla_k":
+    if username == "<USER WITH SPECIAL NEEDS>":
         print("User is member of Marketing: " + username)
-        mount("goofy","photos_marketing","photos_marketing")
-        mount("obiwan","media.igs.vic.edu.au","Obiwan")
+        mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
+        mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
 
-    if username == "wrigh_l":
+    if username == "<SECOND SPECIAL USER>":
         print("User is member of Marketing: " + username)
-        mount("obiwan","photos_marketing","photos_marketing")
-        mount("obiwan","media.igs.vic.edu.au","Obiwan")
+        mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
+        mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
 
 def getADGroups():
     #function to retrieve AD Group Membership
@@ -48,93 +50,93 @@ def getADGroups():
             #match exact strings
             print("User is member of Ridgeway Admin: " + username)
 
-            mount("goofy2", "collaboration", "collaboration")
-            mount("goofy4", "Photos", "Photos")
-            mount("goofy", "staff", "staff")
-            mount("goofy", "public", "public")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
         if "adminp" in line:
             print("User is member of Plenty Admin: " + username)
 
-            mount("sylvester2", "collaboration", "collaboration")
-            mount("sylvester", "Photos", "Photos")
-            mount("sylvester", "staff", "staff")
-            mount("sylvester", "public", "public")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
         if "IT Services Staff" in line:
             print("User is member of IT Services Staff: " + username)
-            mount("goofy2", "its", "its")
-            mount("goofy", "software", "software")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
         if "0000P" in line:
             print("User in 0000P group: " + username)
         if "0000R" in line:
             print("User in 0000R group: " + username)
         if "2016P" in line:
             print("User in 2016P group: " + username)
-            mount("sylvester","collaboration","collaboration")
-            mount("sylvester","public","public")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
         if "2016R" in line:
             print("User in 2016R group: " + username)
-            mount("goofy2", "collaboration", "collaboration")
-            mount("goofy", "public", "public")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
         if "2017P" in line:
             print("User in 2017P group: " + username)
-            mount("sylvester", "collaboration", "collaboration")
-            mount("sylvester", "public", "public")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
         if "2017R" in line:
             print("User in 2017R group: " + username)
-            mount("goofy2", "collaboration", "collaboration")
-            mount("goofy", "public", "public")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
         if "2018P" in line:
             print("User in 2018P group: " + username)
-            mount("sylvester", "collaboration", "collaboration")
-            mount("sylvester", "public", "public")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
         if "2018R" in line:
             print("User in 2018R group: " + username)
-            mount("goofy2", "collaboration", "collaboration")
-            mount("goofy", "public", "public")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
         if "2019P" in line:
             print("User in 2019P group: " + username)
-            mount("sylvester", "collaboration", "collaboration")
-            mount("sylvester", "public", "public")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
         if "2019R" in line:
             print("User in 2019R group: " + username)
-            mount("goofy2", "collaboration", "collaboration")
-            mount("goofy", "public", "public")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
         if "2020P" in line:
             print("User in 2020P group: " + username)
-            mount("sylvester", "collaboration", "collaboration")
-            mount("sylvester", "public", "public")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
         if "2020R" in line:
             print("User in 2020R group: " + username)
-            mount("goofy2", "collaboration", "collaboration")
-            mount("goofy", "public", "public")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
         if "2021P" in line:
             print("User in 2021P group: " + username)
-            mount("sylvester", "collaboration", "collaboration")
-            mount("sylvester", "public", "public")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
         if "2021R" in line:
             logging.debug("User in 2021R group: " + username)
-            mount("goofy2", "collaboration", "collaboration")
-            mount("goofy", "public", "public")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
         if "2022P" in line:
             print("User in 2022P group: " + username)
-            mount("sylvester", "collaboration", "collaboration")
-            mount("sylvester", "public", "public")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
         if "2022R" in line:
             print("User in 2022R group: " + username)
-            mount("goofy2", "collaboration", "collaboration")
-            mount("goofy", "public", "public")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
         if "2023P" in line:
             print("User in 2023P group: " + username)
-            mount("sylvester", "collaboration", "collaboration")
-            mount("sylvester", "public", "public")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
         if "2023R" in line:
             print("User in 2023R group: " + username)
-            mount("goofy2", "collaboration", "collaboration")
-            mount("goofy", "public", "public")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
         if "2024P" in line:
             print("User in 2024P group: " + username)
-            mount("sylvester", "collaboration", "collaboration")
-            mount("sylvester", "public", "public")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
         if "2024R" in line:
             print("User in 2024R group " + username)
             mount("goofy2", "collaboration", "collaboration")
