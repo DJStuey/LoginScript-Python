@@ -193,8 +193,8 @@ def getADGroups():
             mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
 
 def mount(server, share, mountPoint):
+    #Mount <share> on <server> as <mountPoint>
     directory = "/Volumes/" + mountPoint
-    print "Mounting /" + server + "." + FQDN + "/" + share + " as /Volumes/" + mountPoint
     print("Mounting " + server + "." + FQDN + "/" + share + " as " + directory)
     if not os.path.exists(directory):
         os.system("osascript -e 'mount volume \"smb://" + server + "." + FQDN + "/"+ share + "\"'")
@@ -202,15 +202,15 @@ def mount(server, share, mountPoint):
         print("Mount point already exists. Skipping")
 
 def mountHome():
+    ##Discover and mount Network Home Folder
     directory = "/Volumes/" + username
     print("Locating Network Home Folder for: " + username)
-    # Notice that each of the the pieces of the command are separated with a comma when you would have a space in bash
     command = ['/usr/bin/dscl', '/Active Directory/' + DOMAIN + '/' + FQDN, '-read', '/Users/' + username, 'SMBHome']
 
     output = subprocess.check_output(command, stderr=subprocess.PIPE)
     path = output.strip().split(": ")
 
-    # Now we want to only get the path since this was your real goal. The [1] say to only retrieve the second object in the list
+    
     path = output.strip().split(": ")[1]
     path = path.replace('\\', '/')
 
