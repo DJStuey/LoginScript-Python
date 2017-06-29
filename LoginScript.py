@@ -1,5 +1,9 @@
 #!/usr/bin/python
 
+##Prepared by Stuart Laomnt
+##Script attempts to mount network shares
+##Python version written in order to run from JSS/Self-Service
+
 import os
 import time
 from SystemConfiguration import SCDynamicStoreCopyConsoleUser
@@ -38,7 +42,7 @@ def mountSpecial():
 def getADGroups():
     #function to retrieve AD Group Membership
     print("Determining Active Directory Groups for: " + username)
-    groupMembership = subprocess.check_output(['ldapsearch', '-LLL', '-Q', '-H', 'ldap://dc-r2.igs.vic.edu.au', '-b', 'dc=igs,dc=vic,dc=edu,dc=au', '(&(objectCategory=Person)(objectClass=User)(sAMAccountName={0}))'.format(username), 'memberOf', '2>/dev/null'])
+    groupMembership = subprocess.check_output(['ldapsearch', '-LLL', '-Q', '-H', 'ldap://<DOMAIN CONTROLLER>', '-b', 'dc=igs,dc=vic,dc=edu,dc=au', '(&(objectCategory=Person)(objectClass=User)(sAMAccountName={0}))'.format(username), 'memberOf', '2>/dev/null'])
     groupMembership = groupMembership.strip()
     groupMembership = groupMembership.strip("memberOf: CN=")
     groups = groupMembership.split("CN=")
@@ -114,7 +118,7 @@ def getADGroups():
             mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
             mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
         if "2021R" in line:
-            logging.debug("User in 2021R group: " + username)
+            print("User in 2021R group: " + username)
             mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
             mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
         if "2022P" in line:
@@ -139,68 +143,67 @@ def getADGroups():
             mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
         if "2024R" in line:
             print("User in 2024R group " + username)
-            mount("goofy2", "collaboration", "collaboration")
-            mount("goofy", "public", "public")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
         if "2025P" in line:
             print("User in 2025P group: " + username)
-            mount("sylvester", "collaboration", "collaboration")
-            mount("sylvester", "public", "public")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
         if "2025R" in line:
             print("User in 2025R group: " + username)
-            mount("goofy2", "collaboration", "collaboration")
-            mount("goofy", "public", "public")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
         if "2026P" in line:
             print("User in 2026P group: " + username)
-            mount("sylvester", "collaboration", "collaboration")
-            mount("sylvester", "public", "public")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
         if "2026R" in line:
             print("User in 2026R group: " + username)
-            mount("goofy2", "collaboration", "collaboration")
-            mount("goofy", "public", "public")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
         if "2027P" in line:
             print("User in 2027P group: " + username)
-            mount("sylvester", "collaboration", "collaboration")
-            mount("sylvester", "public", "public")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
         if "2027R" in line:
             print("User in 2027R group: " + username)
-            mount("goofy2", "collaboration", "collaboration")
-            mount("goofy", "public", "public")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
         if "externalR" in line:
             print("User in externalR group: " + username)
-            mount("goofy", "staff", "staff")
-            mount("goofy", "public", "public")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
         if "externalP" in line:
             print("User in externalP group: " + username)
-            mount("sylvester", "staff", "staff")
-            mount("sylvester", "public", "public")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
         if "academicR" in line:
             print("User in Academic R Group: " + username)
 
-            mount("goofy2", "collaboration", "collaboration")
-            mount("goofy4", "Photos", "Photos")
-            mount("goofy", "staff", "staff")
-            mount("goofy", "public", "public")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
         if "academicP" in line:
             print("User in Academic P Group: " + username)
 
-            mount("sylvester2", "collaboration", "collaboration")
-            mount("sylvester", "Photos", "Photos")
-            mount("sylvester", "staff", "staff")
-            mount("sylvester", "public", "public")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
+            mount("<SERVER NAME>","<SHAREPOINT NAME>","<MOUNT NAME>")
 
 def mount(server, share, mountPoint):
     directory = "/Volumes/" + mountPoint
     print "Mounting /" + server + "." + FQDN + "/" + share + " as /Volumes/" + mountPoint
-    logging.debug("Mounting " + server + "." + FQDN + "/" + share + " as " + directory)
+    print("Mounting " + server + "." + FQDN + "/" + share + " as " + directory)
     if not os.path.exists(directory):
         os.system("osascript -e 'mount volume \"smb://" + server + "." + FQDN + "/"+ share + "\"'")
     else:
-        logging.debug("Mount point already exists. Skipping")
-        print "Mount point already exists. Skipping"
+        print("Mount point already exists. Skipping")
 
 def mountHome():
     directory = "/Volumes/" + username
-    logging.debug("Locating Network Home Folder for: " + username)
+    print("Locating Network Home Folder for: " + username)
     # Notice that each of the the pieces of the command are separated with a comma when you would have a space in bash
     command = ['/usr/bin/dscl', '/Active Directory/' + DOMAIN + '/' + FQDN, '-read', '/Users/' + username, 'SMBHome']
 
@@ -211,7 +214,7 @@ def mountHome():
     path = output.strip().split(": ")[1]
     path = path.replace('\\', '/')
 
-    logging.debug("Home Folder Location: " + path)
+    print("Home Folder Location: " + path)
 
     print path
 
